@@ -8,14 +8,12 @@ function App() {
   );
 }
 
-
-
 function MyComp() {
   return (
     <div>
       <h1>HI COMPONENT</h1>
     </div>
-  )
+  );
 }
 
 export default App;
