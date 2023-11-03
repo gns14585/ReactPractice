@@ -1,22 +1,28 @@
 import React from "react";
 
 function App(props) {
-  const myStyle = {
-    color: "blue",
-    backgroundColor: "gold",
-    fontSize: "70px",
-    textAlign: "center",
-  }; // js object
   return (
-    <>
-      <div style={myStyle}>Lorem ipsum dolor.</div>
-      <hr />
-      <div
-        style={{ color: "red", backgroundColor: "yellow", fontSize: "30px" }}
+    <div>
+      <h1
+        className="note"
+        style={{ backgroundColor: "blue", color: "white" }}
+        title="제목 요소"
       >
-        Lorem ipsum dolor.
-      </div>
-    </>
+        Lorem.
+      </h1>
+      <p title="문단 요소">Lorem ipsum dolor.</p>
+      <MyComp title="내 컴포넌트" name="흥민" />
+      <MyComp title="I am 컴포넌트에요" name="강인" />
+    </div>
+  );
+}
+
+function MyComp(props) {
+  console.log("MyComp가 받은 props", props);
+  return (
+    <div>
+      <h1 title={props.title}>hello {props.name}</h1>
+    </div>
   );
 }
 
