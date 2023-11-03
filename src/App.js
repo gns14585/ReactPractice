@@ -1,30 +1,29 @@
-function App() {
+function App(props) {
+  const number = Math.ceil(Math.random() * 100);
+  const isLarge = number > 50;
+
   return (
     <div>
-      <h1>hello react</h1>
-      <h2>Hi React</h2>
-      <MyComp />
-      <MyComp2 />
+      <h1>난수 : {number}</h1>
+      <h1>{number > 50 ? "큰 수 " : "작은 수"}</h1>
+      <h1>{number > 50 ? <BigImage /> : <SmallImage />}</h1>
+      <div>{isLarge && <h1>큰 수</h1>}</div>
+      <div>{isLarge || <h1>작은 수</h1>}</div>
     </div>
   );
 }
-function MyComp() {
+function BigImage() {
   return (
     <div>
-      <h1>HI COMPONENT</h1>
+      <h1>큰 이미지</h1>
     </div>
   );
 }
-function MyComp2() {
-  let name = "손흥민";
-  let age = 33;
+
+function SmallImage() {
   return (
     <div>
-      <h1>hello react</h1>
-      <h1>hello {name}</h1>
-      <h1>{age} years</h1>
-      <h1>{age * 2} double years</h1>
-      <h1>{name + "선수"}</h1>
+      <h1>작은 이미지</h1>
     </div>
   );
 }
