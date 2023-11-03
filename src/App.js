@@ -1,3 +1,17 @@
+function MyComp({
+  text = "hello react",
+  m = "30px",
+  p = "10px",
+  color = "blue",
+  bg = "red",
+}) {
+  return (
+    <div style={{ margin: m, padding: p, color: color, backgroundColor: bg }}>
+      <h1>{text}</h1>
+    </div>
+  );
+}
+
 function App() {
   return (
     <div>
