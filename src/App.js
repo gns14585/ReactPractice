@@ -1,22 +1,16 @@
-import React from "react";
-import {
-  MyBox,
-  MyContainer,
-  MyElem,
-  name,
-  person,
-  address,
-} from "./component/MyBox";
+import address, { city } from "./component/MyElem";
+import MyContainer, { country, person } from "./component/MyBox";
 
 function App(props) {
-  console.log("name", name);
-  console.log("address", address);
-  console.log("person", person);
   return (
     <div>
-      <MyBox />
-      <MyElem />
+      <h1>{city}</h1>
+      <h1>{address}</h1>
       <MyContainer />
+      <h1>
+        {person.name}, {person.age}
+      </h1>
+      <h1>{country}</h1>
     </div>
   );
 }
