@@ -1,14 +1,22 @@
-// export된 컴포넌트(변수,함수,객체)를 import 해서 사용
-import { MyElem } from "./component/MyElem";
-import { MyComp } from "./component/MyComp";
-import { MyHeader } from "./component/MyHeader";
+import React from "react";
+import {
+  MyBox,
+  MyContainer,
+  MyElem,
+  name,
+  person,
+  address,
+} from "./component/MyBox";
 
-function App() {
+function App(props) {
+  console.log("name", name);
+  console.log("address", address);
+  console.log("person", person);
   return (
     <div>
-      <MyHeader />
-      <MyComp />
+      <MyBox />
       <MyElem />
+      <MyContainer />
     </div>
   );
 }
