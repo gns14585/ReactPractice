@@ -1,31 +1,25 @@
+import React from "react";
 import { Button } from "@chakra-ui/react";
 
-function MyComp({ children, executeClick }) {
-  return <Button onClick={executeClick}>{children}</Button>;
-}
 function App(props) {
-  function func1() {
-    console.log("func1 실행");
-  }
-
-  let func2 = () => {
-    console.log("arrow function 실행1");
+  // 함수명 작성 관습
+  // handle이벤트명
+  const handleClick = () => {
+    console.log("second");
   };
-
+  function handleMouseEnter() {
+    console.log("third");
+  }
+  function handleMouseLeave() {
+    console.log("4th");
+  }
   return (
     <div>
-      <MyComp executeClick={func1}>Button1</MyComp>
-      <MyComp executeClick={func2}>Button2</MyComp>
-      <MyComp
-        executeClick={() => {
-          console.log("arrow function 실행222");
-        }}
-      >
-        Button3
-      </MyComp>
-      <MyComp executeClick={() => console.log("arrow function 실행 444")}>
-        Button4
-      </MyComp>
+      <Button onClick={() => console.log("first")}>버튼1</Button>
+      <Button onClick={handleClick}>버튼2</Button>
+      <Button onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+        버튼3
+      </Button>
     </div>
   );
 }
