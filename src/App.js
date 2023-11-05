@@ -2,16 +2,18 @@ import React, { useState } from "react";
 import { Input, Text } from "@chakra-ui/react";
 
 function App(props) {
-  const [message, setMessage] = useState("");
+  const [number, setNumber] = useState(0);
+
+  const isOdd = number % 2 == 1;
 
   function handleInputChange(e) {
-    setMessage(e.target.value);
+    setNumber(Number(e.target.value));
   }
-
   return (
     <div>
-      <Input onChange={handleInputChange} />
-      <Text>{message}</Text>
+      <Input type="number" onChange={handleInputChange} />
+      <Text>{isOdd && "홀수"}</Text>
+      <Text>{isOdd || "짝수"}</Text>
     </div>
   );
 }
