@@ -1,17 +1,17 @@
 import React, { useState } from "react";
-import { Button, Text } from "@chakra-ui/react";
+import { Input, Text } from "@chakra-ui/react";
 
 function App(props) {
-  let [number, setNumber] = useState(0);
-  function handleClick() {
-    // number++;
-    setNumber(number + 1);
+  const [message, setMessage] = useState("");
+
+  function handleInputChange(e) {
+    setMessage(e.target.value);
   }
 
   return (
     <div>
-      <Button onClick={handleClick}>바꾸기</Button>
-      <Text>{number}</Text>
+      <Input onChange={handleInputChange} />
+      <Text>{message}</Text>
     </div>
   );
 }
