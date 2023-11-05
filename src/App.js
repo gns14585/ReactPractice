@@ -9,13 +9,16 @@ function MyButton({ executeClick, children }) {
 }
 
 function App(props) {
-  const func1() {
-    console.log("hello")
+  function func1() {
+    console.log("hello");
+  }
+  function func2() {
+    console.log("greeting");
   }
   return (
     <div>
-      <MyButton executeClick={func1} >hello</MyButton>
-      <MyButton>greeting</MyButton>
+      <MyButton executeClick={func1}>hello</MyButton>
+      <MyButton executeClick={func2}>greeting</MyButton>
     </div>
   );
 }
