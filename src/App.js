@@ -1,19 +1,31 @@
-import React, { useState } from "react";
 import { Button } from "@chakra-ui/react";
 
+function MyComp({ children, executeClick }) {
+  return <Button onClick={executeClick}>{children}</Button>;
+}
 function App(props) {
-  const [text, setText] = useState("hello");
-  console.log(text);
-
-  function handleButtonClick() {
-    // text 라는 state 값 변경
-    setText("greeting");
+  function func1() {
+    console.log("func1 실행");
   }
+
+  let func2 = () => {
+    console.log("arrow function 실행1");
+  };
 
   return (
     <div>
-      <Button onClick={handleButtonClick}>상태 변경</Button>
-      <p>{text}</p>
+      <MyComp executeClick={func1}>Button1</MyComp>
+      <MyComp executeClick={func2}>Button2</MyComp>
+      <MyComp
+        executeClick={() => {
+          console.log("arrow function 실행222");
+        }}
+      >
+        Button3
+      </MyComp>
+      <MyComp executeClick={() => console.log("arrow function 실행 444")}>
+        Button4
+      </MyComp>
     </div>
   );
 }
