@@ -5,9 +5,13 @@ function App(props) {
   const [items, setItems] = useState([]);
 
   function handleButtonClick(item) {
-    const newItems = { ...item };
-    newItems.push(item);
-    setItems(newItems);
+    // const newItems = [...items];
+    // newItems.push(item);
+
+    // const newItems = [...items, item];
+    // setItems(newItems);
+
+    setItems([...items, item]);
   }
 
   return (
