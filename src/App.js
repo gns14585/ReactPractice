@@ -14,6 +14,12 @@ function App(props) {
 
   function handleDoneButtonClick(id) {
     console.log(id);
+    updateItems((draft) => {
+      const findIndex = draft.findIndex((item) => id);
+      if (findIndex != -1) {
+        draft[findIndex].done = true;
+      }
+    });
   }
 
   return (
