@@ -5,11 +5,13 @@ function App(props) {
   const [text, setText] = useState("");
   const [items, setItems] = useState([]);
 
-  function handleButtonClick(e) {
-    setItems(e.target.value);
+  function handleButtonClick() {
+    setItems([...items, text]);
   }
 
-  function handleRemoveButtonClick(index) {}
+  function handleRemoveButtonClick(index) {
+    setItems(items.filter((item, i) => i != index));
+  }
 
   return (
     <div>
