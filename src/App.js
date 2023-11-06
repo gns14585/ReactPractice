@@ -1,41 +1,37 @@
 import React, { useState } from "react";
-import { Box, Button, ListItem, UnorderedList } from "@chakra-ui/react";
+import { Input, Text } from "@chakra-ui/react";
 
 function App(props) {
-  const [foods, setFoods] = useState([]);
+  const [person, setPerson] = useState({ name: "son", city: "seoul" });
+  const [user, updateUser] = useImmer({ name: "lee", city: "jeju" });
 
-  function handleButtonClick(food) {
-    setFoods([...foods, food]);
+  function handleNameChange(e) {
+    const nextPerson = { ...person };
+    nextPerson.name = e.target.value;
   }
 
-  function handleRemoveButtonClick(index) {
-    // const nextFoods = [...foods];
-    // nextFoods.splice(index, 1);
+  function handleCityChange(e) {
+    const nextPerson = { ...person };
+    nextPerson.city = e.target.value;
 
-    // const nextFoods = foods.filter((item, i) => i != index);
-    // setFoods(nextFoods);
-
-    setFoods(foods.filter((item, i) => i != index));
+    setPerson(nextPerson);
   }
 
   return (
     <div>
-      <Button onClick={() => handleButtonClick("커피")}>커피</Button>
-      <Button onClick={() => handleButtonClick("케잌")}>케잌</Button>
-      <Button onClick={() => handleButtonClick("아이스")}>아이스</Button>
+      <Input value={person.name} onChange={handleNameChange} />
+      <Input value={person.city} onChange={handleCityChange} />
+      <Text>
+        {person.name}은 {person.city}에 삽니다.
+      </Text>
 
-      <Box>
-        <UnorderedList>
-          {foods.map((item, index) => (
-            <ListItem key={index}>
-              {item}{" "}
-              <Button onClick={() => handleRemoveButtonClick(index)}>
-                지우기
-              </Button>
-            </ListItem>
-          ))}
-        </UnorderedList>
-      </Box>
+      <hr />
+
+      <Input value={user.name} onChange={handleUserNameChagne} />
+      <Input value={user.city} onChange={handleUserCityChagne} />
+      <Text>
+        {user.name}은 {user.city}에 삽니다.
+      </Text>
     </div>
   );
 }
