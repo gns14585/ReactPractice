@@ -1,33 +1,22 @@
-import { Button } from "@chakra-ui/react";
+import React from "react";
 
-function MyComp({ children, executeClick }) {
-  return <Button onClick={executeClick}>{children}</Button>;
-}
 function App(props) {
-  function func1() {
-    console.log("func1 실행");
+  // HOOK : use 로 시작하는 함수
+  // hook은 컴포넌트 상단에 작성해야함
+
+  if (true) {
+    // hook 호출 코드 작성 불가
   }
 
-  let func2 = () => {
-    console.log("arrow function 실행1");
-  };
+  for (let i = 0; i < 3; i++) {
+    // hook 호출 코드 작성 불가
+  }
 
-  return (
-    <div>
-      <MyComp executeClick={func1}>Button1</MyComp>
-      <MyComp executeClick={func2}>Button2</MyComp>
-      <MyComp
-        executeClick={() => {
-          console.log("arrow function 실행222");
-        }}
-      >
-        Button3
-      </MyComp>
-      <MyComp executeClick={() => console.log("arrow function 실행 444")}>
-        Button4
-      </MyComp>
-    </div>
-  );
+  function handle() {
+    // hook 호출 코드 작성 불가
+  }
+
+  return <div></div>;
 }
 
 export default App;
