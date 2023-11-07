@@ -1,9 +1,9 @@
 import React, { createContext, useContext, useState } from "react";
-import { Button, Text } from "@chakra-ui/react";
+import { Button, Input, Text } from "@chakra-ui/react";
 
 function CComp() {
-  const message = useContext(MessageContext);
-  return <Text>받은 메세지 : {message}</Text>;
+  const text = useContext(TextContext);
+  return <Text>{text}</Text>;
 }
 
 function BComp() {
@@ -15,17 +15,17 @@ function AComp() {
 }
 
 function App(props) {
-  const [message, setMessage] = useState("기존 메세지");
+  const [text, setText] = useState("");
   return (
     <div>
-      <Button onClick={() => setMessage("변경된 메세지")}>메세지 바꾸기</Button>
-      <MessageContext.Provider value={message}>
+      <Input onChange={(e) => setText(e.target.value)} />
+      <TextContext.Provider value={text}>
         <AComp />
-      </MessageContext.Provider>
+      </TextContext.Provider>
     </div>
   );
 }
 
-const MessageContext = createContext(null);
+const TextContext = createContext(null);
 
 export default App;
