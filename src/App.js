@@ -1,35 +1,31 @@
-import React, { useState } from "react";
+import React, { createContext, useContext, useState } from "react";
 import { Button, Text } from "@chakra-ui/react";
 
-function ChildComp({ onClick }) {
-  // 자식
-  return <Button onClick={onClick}>클릭</Button>;
+function CComp() {
+  const message = useContext(MessageContext);
+  return <Text>받은 메세지 : {message}</Text>;
 }
 
-function SomeComp({ onClick }) {
-  // 부모
-  return <ChildComp onClick={onClick} />;
+function BComp() {
+  return <CComp />;
 }
 
-function OtherChildComp({ message }) {
-  // 자식
-  return <Text>{message}</Text>;
-}
-
-function OtherComp({ message }) {
-  // 부모
-  return <OtherChildComp message={message} />;
+function AComp() {
+  return <BComp />;
 }
 
 function App(props) {
-  const [message, setMessage] = useState("안녕");
-
+  const [message, setMessage] = useState("기존 메세지");
   return (
     <div>
-      <SomeComp onClick={() => setMessage("다른메세지")} />
-      <OtherComp message={message} />
+      <Button onClick={() => setMessage("변경된 메세지")}>메세지 바꾸기</Button>
+      <MessageContext.Provider value={message}>
+        <AComp />
+      </MessageContext.Provider>
     </div>
   );
 }
+
+const MessageContext = createContext(null);
 
 export default App;
