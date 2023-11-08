@@ -3,9 +3,16 @@ import { Box, Select, Spinner, Text } from "@chakra-ui/react";
 import axios from "axios";
 
 function App(props) {
+  const [customerIdList, setCustomerIdList] = useState([]);
   const [customerId, setCustomerId] = useState(0);
   const [customer, setCustomer] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    axios
+      .get("/api/main1/sub7")
+      .then((response) => setCustomerIdList(response.data));
+  }, []);
 
   useEffect(() => {
     setIsLoading(true);
@@ -23,16 +30,9 @@ function App(props) {
         placeholder="고객 번호를 선택하세요"
         onChange={(e) => setCustomerId(e.target.value)}
       >
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-        <option value="8">8</option>
-        <option value="9">9</option>
-        <option value="10">10</option>
+        {customerIdList.map((id) => (
+          <option value={id}>{id}</option> // component가 첫 로딩될때만 가져오면됨(useEffect)
+        ))}
       </Select>
       <Box>
         {isLoading && <Spinner />}
