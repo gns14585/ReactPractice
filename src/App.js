@@ -1,50 +1,57 @@
 import React, { useEffect, useState } from "react";
-import { Box, Select, Spinner, Text } from "@chakra-ui/react";
-import axios from "axios";
+import { Box, Button, Checkbox, Text } from "@chakra-ui/react";
 
-function App(props) {
-  const [customerIdList, setCustomerIdList] = useState([]);
-  const [customerId, setCustomerId] = useState(0);
-  const [customer, setCustomer] = useState({});
-  const [isLoading, setIsLoading] = useState(false);
+function MyComp({ color }) {
+  const [number, setNumber] = useState(0);
 
   useEffect(() => {
-    axios
-      .get("/api/main1/sub7")
-      .then((response) => setCustomerIdList(response.data));
+    console.log(color + " : initial render");
   }, []);
 
-  useEffect(() => {
-    setIsLoading(true);
-    axios
-      .get("/api/main1/sub5?id=" + customerId)
-      .then((response) => response.data)
-      .then((data) => setCustomer(data))
-      .catch((error) => setCustomer(null))
-      .finally(() => setIsLoading(false));
-  }, [customerId]); // 페이지를 첫 로딩할때도 생성되고, 번호를 바꿔도 생성됨
+  console.log(color + " : re render");
+
+  return (
+    <Box borderWidth={"10px"} borderColor={color}>
+      <Button onClick={() => setNumber(number + 1)}>증가</Button>
+      <Text>{number}</Text>
+    </Box>
+  );
+}
+
+function App(props) {
+  const [number, setNumber] = useState(0);
+  const [secondToggle, setSecondToggle] = useState(true);
+  const [gold, setGold] = useState(true);
+
+  console.log("부모 re-render");
 
   return (
     <div>
-      <Select
-        placeholder="고객 번호를 선택하세요"
-        onChange={(e) => setCustomerId(e.target.value)}
-      >
-        {customerIdList.map((id) => (
-          <option value={id}>{id}</option> // component가 첫 로딩될때만 가져오면됨(useEffect)
-        ))}
-      </Select>
       <Box>
-        {isLoading && <Spinner />}
-        {isLoading || (
-          <>
-            {customer === null ? (
-              <Text>조회한 고객이 없습니다.</Text>
-            ) : (
-              <Text>고객 이름 : {customer.name}</Text>
-            )}
-          </>
-        )}
+        <Text>부모</Text>
+        <Button onClick={() => setNumber(number + 1)}>증가</Button>
+        <Text>{number}</Text>
+        <Checkbox
+          defaultChecked={true}
+          onChange={(e) => setSecondToggle(e.target.checked)}
+        >
+          파란 박스 토글
+        </Checkbox>
+        <Checkbox
+          defaultChecked={true}
+          onChange={(e) => setGold(e.target.checked)}
+        >
+          골드 박스 토글
+        </Checkbox>
+      </Box>
+      <Box mt={5}>
+        <Text>자식</Text>
+        <MyComp color={"red"} />
+        {secondToggle && <MyComp color={"blue"} />}
+
+        <Box sx={{ display: gold ? "block" : "none" }}>
+          <MyComp color={"gold"} />
+        </Box>
       </Box>
     </div>
   );
