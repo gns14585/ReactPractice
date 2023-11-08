@@ -1,68 +1,81 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   createBrowserRouter,
   createRoutesFromElements,
-  Link,
   Outlet,
   Route,
   RouterProvider,
   useNavigate,
+  useParams,
+  useSearchParams,
 } from "react-router-dom";
-import { Box, Button, Flex } from "@chakra-ui/react";
+import { Box, Button, Text } from "@chakra-ui/react";
+import axios from "axios";
 
-function HomeComponent() {
-  // 경로 이동시 useNavigate hook 사용 해야함
+function Home() {
   const navigate = useNavigate();
 
   return (
     <Box>
-      <Flex gap={"10px"}>
-        <Box>
-          <Button onClick={() => (window.location.href = "/apath")}>
-            a로 가기
-          </Button>
-        </Box>
-        <Box>
-          <Button onClick={() => (window.location.href = "/bpath")}>
-            b로 가기
-          </Button>
-        </Box>
+      <Box>
+        <Button onClick={() => navigate("/path1?id=1")}>1번 고객 보기</Button>
+        <Button onClick={() => navigate("/path1?id=2")}>2번 고객 보기</Button>
+        <Button onClick={() => navigate("/path1?id=3")}>3번 고객 보기</Button>
 
-        <Box>
-          <Button onClick={() => navigate("/apath")}>a로 가기</Button>
-        </Box>
-        <Box>
-          <Button onClick={() => navigate("/bpath")}>b로 가기</Button>
-        </Box>
-      </Flex>
-      <Outlet />
+        <Button onClick={() => navigate("/path2/seoul")}>seoul 보기</Button>
+        <Button onClick={() => navigate("/path2/busan")}>busan 보기</Button>
+      </Box>
+      <Box>
+        <Outlet />
+      </Box>
     </Box>
   );
 }
 
 function AComp() {
-  return <Box>에이 컴포넌트</Box>;
+  const [customer, setCustomer] = useState(null);
+  // query string 을 얻기
+  const [searchParams] = useSearchParams();
+
+  // console.log(searchParams);
+  // console.log(searchParams.get("id"));
+  // console.log(searchParams.toString());
+
+  useEffect(() => {
+    axios
+      .get("/api/main1/sub5?" + searchParams.toString())
+      .then((response) => setCustomer(response.data))
+      .catch((error) => console.log(error));
+  }, [searchParams]);
+
+  return (
+    <Box>
+      {customer && (
+        <Text>
+          {searchParams.get("id")} 번 고객명 {customer.name}
+        </Text>
+      )}
+    </Box>
+  );
 }
 
 function BComp() {
-  return <Box>비 컴포넌트</Box>;
+  const params = useParams();
+
+  return <Box>{params.address}</Box>;
 }
 
-function App(props) {
-  const router = createBrowserRouter(
-    createRoutesFromElements(
-      <Route path="/" element={<HomeComponent />}>
-        <Route path="apath" element={<AComp />} />
-        <Route path="bpath" element={<BComp />} />
-      </Route>,
-    ),
-  );
+const routes = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="/" element={<Home />}>
+      <Route path="path1" element={<AComp />} />
+      <Route path="path2/:address" element={<BComp />} />
+    </Route>,
+  ),
+);
 
-  return (
-    <div>
-      <RouterProvider router={router} />
-    </div>
-  );
+function App(props) {
+  return <RouterProvider router={routes} />;
 }
 
 export default App;
