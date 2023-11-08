@@ -2,16 +2,31 @@ import React from "react";
 import {
   createBrowserRouter,
   createRoutesFromElements,
+  Link,
   Outlet,
   Route,
   RouterProvider,
 } from "react-router-dom";
-import { Box } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 
 function HomeComponent() {
   return (
     <Box>
-      공통된 요소들
+      <Flex gap={"10px"}>
+        <Box>
+          <a href="/apath">에이로 가기</a>
+        </Box>
+        <Box>
+          <a href="/bpath">비로 가기</a>
+        </Box>
+
+        <Box>
+          <Link to={"/apath"}>에이로 가기</Link>
+        </Box>
+        <Box>
+          <Link to={"/bpath"}>비로 가기</Link>
+        </Box>
+      </Flex>
       <Outlet />
     </Box>
   );
